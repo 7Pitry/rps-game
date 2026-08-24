@@ -1,11 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script src="js.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="game">
+            <button class="play-btn" id="btn-r">Rock</button>
+            <button class="play-btn" id="btn-p">Paper</button>
+            <button class="play-btn" id="btn-s">Scissors</button>
+            <p id="last-round" style="display: none">
+                Last round: You - <span id="human-choice"></span>, Computer -
+                <span id="comp-choice"></span>
+            </p>
+
+            <p>
+                Resoult:
+                <span id="resoult"></span>
+            </p>
+            <p>
+                You:
+                <span id="human-score">0</span>
+            </p>
+            <p>
+                Computer:
+                <span id="comp-score">0</span>
+            </p>
+        </div>
+        <div id="end" style="display: none">
+            <h1>Winner is: <span id="winner"></span></h1>
+            <button id="play-again">Play again</button>
+        </div>
+        <script src="js.js"></script>
+    </body>
 </html>

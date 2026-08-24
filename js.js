@@ -1,59 +1,83 @@
 let human = 0;
 let humanFixed = 0;
-let humanScore = 0;
-let compScore = 0;
+
+let humanScore = document.getElementById("human-score").innerText
+let compScore = document.getElementById("comp-score").innerText
+
+humanScore = 0;
+compScore = 0;
+console.log(humanScore, compScore)
 
 function getComputerChoice(){
     let random_number = Math.floor(Math.random() * 3);
     if(random_number === 0){
-        return "rock";
+        return "Rock";
     }else if(random_number === 1){
-        return "paper";
+        return "Paper";
     }else{
-        return "scissors";
+        return "Scissors";
     }
 }
 
-function getHumanChoice(){
-    do{
-    human = prompt("podaj znak")
-    humanFixed= human.toLowerCase()
-    if(humanFixed !== "rock" && humanFixed !== "paper" && humanFixed !== "scissors"){
-        console.log("zle wprowadzony znak")
-    }
-    }while(humanFixed !== "rock" && humanFixed !== "paper" && humanFixed !== "scissors")
-        return humanFixed
-}
+let buttons = document.querySelectorAll(".play-btn");
+buttons.forEach((button) =>{
+    button.addEventListener("click", () => {
+       playRound(button.innerText)
+    })
+})
 
-function playRound(){
+
+function playRound(humanChoice){
+    if(humanScore >= 4 || compScore >= 4){
+        document.getElementById("game").style.display = "none"
+        document.getElementById("end").style.display = "block"
+        document.getElementById("winner").innerText = humanScore === 4 ? "You" : "Computer";
+    }
+    document.getElementById("last-round").style.display = "block"
+    document.getElementById("human-choice").innerText = humanChoice
     let computerChoice = getComputerChoice()
-    let humanChoice = getHumanChoice()
-    console.log(computerChoice)
+    document.getElementById("comp-choice").innerText = computerChoice
     if(humanChoice === computerChoice){
-        console.log("Draw")
-    }else if((humanChoice === "rock" && computerChoice === "scissors") || (humanChoice === "scissors" && computerChoice === "paper") || (humanChoice === "paper" && computerChoice === "rock")){
-        console.log("You win!")
+        document.getElementById("resoult").innerText = "Draw"
+    }else if((humanChoice === "Rock" && computerChoice === "Scissors") || (humanChoice === "Scissors" && computerChoice === "Paper") || (humanChoice === "Paper" && computerChoice === "Rock")){
+        document.getElementById("resoult").innerText = "You win"
         humanScore += 1
+        document.getElementById("human-score").innerText = humanScore
     }else{
-        console.log("You lose!")
+        document.getElementById("resoult").innerText = "Computer wins"
         compScore += 1
+        document.getElementById("comp-score").innerText = compScore
     }
-    console.log("=========")
-    console.log(`Your score: ${humanScore}`)
-    console.log(`Computer score: ${compScore}`)
-    console.log("=========")
+    
+    // console.log("=========")
+    // console.log(`Your score: ${humanScore}`)
+    // console.log(`Computer score: ${compScore}`)
+    // console.log("=========")
+}
+const playAgain = () => {
+    humanScore = 0;
+    compScore = 0;
+    document.getElementById("winner").innerText = ""
+    document.getElementById("game").style.display = "block"
+    document.getElementById("end").style.display = "none"
+    document.getElementById("human-score").innerText = humanScore
+    document.getElementById("comp-score").innerText = compScore
+    document.getElementById("last-round").style.display = "none"
+    document.getElementById("resoult").innerText = ""
 }
 
-function playGame(){
-    for(let i = 0; i < 5; i++){
-        playRound()
-    }
-    if(humanScore>compScore){
-        console.log("You win whole game!!!")
-    }else if(humanScore === compScore){
-        console.log("Mega draw!!!")
-    }else{
-        console.log("You totally lose!!!")
-    }
-}
-playGame()
+document.getElementById("play-again").addEventListener("click", playAgain)
+
+// function playGame(){
+//     for(let i = 0; i < 5; i++){
+//         playRound()
+//     }
+//     if(humanScore>compScore){
+//         console.log("You win whole game!!!")
+//     }else if(humanScore === compScore){
+//         console.log("Mega draw!!!")
+//     }else{
+//         console.log("You totally lose!!!")
+//     }
+// }
+// playGame()
